@@ -13,10 +13,6 @@ var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _puppeteer = require('puppeteer');
-
-var _puppeteer2 = _interopRequireDefault(_puppeteer);
-
 var _jestImageSnapshot = require('jest-image-snapshot');
 
 var _nodeLogger = require('@storybook/node-logger');
@@ -84,18 +80,7 @@ var imageSnapshot = exports.imageSnapshot = function imageSnapshot() {
     });
   };
 
-  testFn.beforeAll = function () {
-    return _puppeteer2.default
-    // add some options "no-sandbox" to make it work properly on some Linux systems as proposed here: https://github.com/Googlechrome/puppeteer/issues/290#issuecomment-322851507
-    .launch({ args: ['--no-sandbox ', '--disable-setuid-sandbox'] }).then(function (b) {
-      browser = b;
-    }).then(function () {
-      return browser.newPage();
-    }).then(function (p) {
-      page = p;
-    });
-  };
-
+  testFn.beforeAll = function () {};
   testFn.afterAll = function () {
     return browser.close();
   };

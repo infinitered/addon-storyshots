@@ -1,4 +1,3 @@
-import puppeteer from 'puppeteer';
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
 import { logger } from '@storybook/node-logger';
 
@@ -67,18 +66,7 @@ export const imageSnapshot = (customConfig = {}) => {
       });
   };
 
-  testFn.beforeAll = () =>
-    puppeteer
-      // add some options "no-sandbox" to make it work properly on some Linux systems as proposed here: https://github.com/Googlechrome/puppeteer/issues/290#issuecomment-322851507
-      .launch({ args: ['--no-sandbox ', '--disable-setuid-sandbox'] })
-      .then(b => {
-        browser = b;
-      })
-      .then(() => browser.newPage())
-      .then(p => {
-        page = p;
-      });
-
+  testFn.beforeAll = () => {};
   testFn.afterAll = () => browser.close();
 
   return testFn;

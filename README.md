@@ -168,7 +168,6 @@ initStoryshots({suite: 'Image storyshots', test: imageSnapshot()});
 ```
 This will assume you have a storybook running on at _<http://localhost:6006>_.
 Internally here are the steps:  
-- Launches a Chrome headless using [puppeteer](https://github.com/GoogleChrome/puppeteer)
 - Browses each stories (calling _<http://localhost:6006/iframe.html?...>_ URL),
 - Take screenshots & save all images under _\_image_snapshots\__ folder.
 
@@ -211,37 +210,6 @@ const beforeScreenshot = (page, {context : {kind, story}, url}) => {
 initStoryshots({suite: 'Image storyshots', test: imageSnapshot({storybookUrl: 'http://localhost:6006', getMatchOptions, beforeScreenshot})});
 ```
 `getMatchOptions` receives an object: `{ context: {kind, story}, url}`. _kind_ is the kind of the story and the _story_ its name. _url_ is the URL the browser will use to screenshot.
-
-`beforeScreenshot` receives the [Puppeteer page instance](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#class-page) and an object: `{ context: {kind, story}, url}`. _kind_ is the kind of the story and the _story_ its name. _url_ is the URL the browser will use to screenshot. `beforeScreenshot` is part of the promise chain and is called after the browser navigation is completed but before the screenshot is taken. It allows for triggering events on the page elements and delaying the screenshot and can be used avoid regressions due to mounting animations.
-
-### Specifying options to _goto()_ (puppeteer API)
-
-You might use `getGotoOptions` to specify options when the storybook is navigating to a story (using the `goto` method). Will be passed to [Puppeteer .goto() fn](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagegotourl-options)
-
-```js
-import initStoryshots, { imageSnapshot } from '@storybook/addon-storyshots';
-const getGotoOptions = ({context, url}) => {
-  return {
-    waitUntil: 'networkidle0',
-  }
-}
-initStoryshots({suite: 'Image storyshots', test: imageSnapshot({storybookUrl: 'http://localhost:6006', getGotoOptions})});
-```
-### Specifying options to _screenshot()_ (puppeteer API)
-
-You might use `getScreenshotOptions` to specify options for screenshot. Will be passed to [Puppeteer .screenshot() fn](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagescreenshotoptions)
-
-```js
-import initStoryshots, { imageSnapshot } from '@storybook/addon-storyshots';
-const getScreenshotOptions = ({context, url}) {
-  return {
-    fullPage: false // Do not take the full page screenshot. Default is 'true' in Storyshots.
-  }
-}
-initStoryshots({suite: 'Image storyshots', test: imageSnapshot({storybookUrl: 'http://localhost:6006', getScreenshotOptions})});
-```
-
-`getScreenshotOptions` receives an object `{ context: {kind, story}, url}`. _kind_ is the kind of the story and the _story_ its name. _url_ is the URL the browser will use to screenshot.
 
 ### Integrate image storyshots with regular app
 
