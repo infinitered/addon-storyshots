@@ -11,6 +11,8 @@
 
 StoryShots adds automatic Jest Snapshot Testing for [Storybook](https://storybook.js.org/).
 
+This version of StoryShots was originally built by [Infinite Red](https://infinite.red), a U.S.-based web and mobile development company.
+
 [Framework Support](https://github.com/storybooks/storybook/blob/master/ADDONS_SUPPORT.md)
 
 ![StoryShots In Action](docs/storyshots-fail.png)
